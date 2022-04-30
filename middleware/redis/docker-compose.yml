@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  kms:
+    internal: true
+
+services:
+  redis-master:
+    image: redis:zj
+    container_name: redis-master
+    ports:
+      - "6379:6379"
+    networks:
+      - kms
+    #    volumes:
+    #      - /home/redis/data:/data
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+
+
+
