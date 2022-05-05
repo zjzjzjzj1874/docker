@@ -14,7 +14,7 @@ services:
       - "2380:2380"
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
-      - ETCD_ADVERTISE_CLIENT_URLS=http://10.28.16.49:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
     networks:
       - kms
     volumes:
@@ -22,26 +22,16 @@ services:
   mango:
     image: mongo
     container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     networks:
       - kms
     ports:
       - "27017:27017"
-  bitnami-redis:
-    image: bitnami/redis
-    container_name: bitnami-redis
-    networks:
-      - kms
-    ports:
-      - "7000:7000"
     volumes:
-      - /Users/cy-zjzjzjzj/tools/redis/data:/data # 映射数据目录
-    #      - /root/docker/redis/conf:/etc/redis/redis.conf # 映射配置文件
-    privileged: true
-    environment: #环境变量
-      # - ALLOW_EMPTY_PASSWORD=yes # 允许不要密码
-      - REDIS_PASSWORD=123456a # 设置密码
-      - TZ=Asia/Shanghai
-      - LANG=en_US.UTF-8
+      - /Users/cy-zjzjzjzj/tools/mongo/data:/etc/mongo
   redis:
     image: redis
     container_name: redis
