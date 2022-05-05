@@ -1,0 +1,3 @@
+- redis的镜像：
+  - TODO 本地测试是否可用
+  - TODO 再添加其他的redis实例
