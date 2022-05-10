@@ -3,17 +3,16 @@ version: "3"
 networks:
   kms:
     internal: true
-
+# 在执行这个之前，请先传入一个对应的环境变量
+# eg： export TAG=latest
 services:
   redis-master:
-    image: redis:zj
+    image: redis:${TAG}
     container_name: redis-master
     ports:
-      - "6379:6379"
+      - "6380:6380"
     networks:
       - kms
-    #    volumes:
-    #      - /home/redis/data:/data
     privileged: true
     environment:
       - TZ=Asia/Shanghai
