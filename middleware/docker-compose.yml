@@ -6,19 +6,19 @@ networks:
     internal: true
 
 services:
-  etcd:
-    image: docker.io/bitnami/etcd:3.5
-    container_name: etcd
-    ports:
-      - "2379:2379"
-      - "2380:2380"
-    environment:
-      - ALLOW_NONE_AUTHENTICATION=yes
-      - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
-    networks:
-      - kms
-    volumes:
-      - etcd_data:/bitnami/etcd
+#  etcd:
+#    image: docker.io/bitnami/etcd:3.5
+#    container_name: etcd
+#    ports:
+#      - "2379:2379"
+#      - "2380:2380"
+#    environment:
+#      - ALLOW_NONE_AUTHENTICATION=yes
+#      - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
+#    networks:
+#      - kms
+#    volumes:
+#      - etcd_data:/bitnami/etcd
   mango:
     image: mongo
     container_name: mongo
@@ -42,7 +42,7 @@ services:
     volumes:
       - /Users/cy-zjzjzjzj/tools/redis/data:/data # 映射数据目录
     #      - /root/docker/redis/conf:/etc/redis/redis.conf # 映射配置文件
-    command: redis-server --requirepass root123
+    command: redis-server --requirepass 123456a
     privileged: true  #环境变量
     environment:
       - TZ=Asia/Shanghai
