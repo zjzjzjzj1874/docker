@@ -7,4 +7,7 @@ make tidy
 
 ls -l
 
-pwd
+# shellcheck disable=SC2006
+ver=$(cat .version)
+
+echo "now version is ${ver}"
