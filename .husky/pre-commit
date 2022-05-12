@@ -23,6 +23,8 @@ fi
 new_version="$major.$minor.$patch"
 echo "$new_version" >.version
 
-echo "new version: $new_version"
+echo "============= new version: $new_version ============="
 
 git add .
+
+echo " ====== pre commit finish ======"
