@@ -4,3 +4,7 @@
 echo hello
 
 make tidy
+
+ls -l
+
+pwd
