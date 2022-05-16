@@ -6,20 +6,22 @@ networks:
     internal: true
 
 services:
-#  etcd:
-#    image: docker.io/bitnami/etcd:3.5
-#    container_name: etcd
-#    ports:
-#      - "2379:2379"
-#      - "2380:2380"
-#    environment:
-#      - ALLOW_NONE_AUTHENTICATION=yes
-#      - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
-#    networks:
-#      - kms
-#    volumes:
-#      - etcd_data:/bitnami/etcd
+  etcd:
+    image: docker.io/bitnami/etcd:3.5
+    container_name: etcd
+    ports:
+      - "2379:2379"
+      - "2380:2380"
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
+    networks:
+      - kms
+    volumes:
+      - etcd_data:/bitnami/etcd
   mango:
+    env_file:
+      - .env
     image: mongo
     container_name: mongo
     restart: always
@@ -31,8 +33,12 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - /Users/cy-zjzjzjzj/tools/mongo/data:/etc/mongo
+      - ${HOME}/tools/mongo/data:/etc/mongo
+      - ${APP_PATH}/etc:/app/etc
+      - ${LOG_PATH}/logs/mnogo:/app/logs
   redis:
+    env_file:
+      - .env
     image: redis
     container_name: redis
     networks:
@@ -40,8 +46,8 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - /Users/cy-zjzjzjzj/tools/redis/data:/data # 映射数据目录
-    #      - /root/docker/redis/conf:/etc/redis/redis.conf # 映射配置文件
+      - ${HOME}/redis/data:/data # 映射数据目录
+      - ${HOME}/redis/conf:/etc/redis/redis.conf # 映射配置文件
     command: redis-server --requirepass 123456a
     privileged: true  #环境变量
     environment:
