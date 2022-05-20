@@ -3,13 +3,16 @@ version: "3"
 networks:
   kms:
     internal: true
-    
+
 services:
   redis-master:
     env_file:
       - .env
     image: redis:${tag}
     container_name: redis-master
+    build:
+      context: .
+      dockerfile: Dockerfile.use
     ports:
       - "6380:6380"
     networks:
