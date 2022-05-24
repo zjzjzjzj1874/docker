@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  kms:
+  docker:
     internal: true
 
 services:
@@ -16,7 +16,7 @@ services:
     ports:
       - "6380:6380"
     networks:
-      - kms
+      - docker
     privileged: true
     environment:
       - TZ=Asia/Shanghai

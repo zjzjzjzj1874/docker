@@ -2,7 +2,7 @@
 version: '3.0'
 
 networks:
-  kms:
+  docker:
     internal: true
 
 services:
@@ -16,7 +16,7 @@ services:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
     networks:
-      - kms
+      - docker
     volumes:
       - etcd_data:/bitnami/etcd
   mango:
@@ -29,7 +29,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     networks:
-      - kms
+      - docker
     ports:
       - "27017:27017"
     volumes:
@@ -42,7 +42,7 @@ services:
     image: redis
     container_name: redis
     networks:
-      - kms
+      - docker
     ports:
       - "6379:6379"
     volumes:
