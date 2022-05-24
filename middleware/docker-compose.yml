@@ -14,7 +14,7 @@ services:
       - "2380:2380"
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
-      - ETCD_ADVERTISE_CLIENT_URLS=http://10.9.155.101:2379
+      - ETCD_ADVERTISE_CLIENT_URLS=http://192.168.0.1:2379
     networks:
       - docker
     volumes:
