@@ -1,3 +1,4 @@
+# 定义一个公共的方法
 def deploy = {
     sh '''
         make env

@@ -31,7 +31,7 @@ services:
     networks:
       - docker
     ports:
-      - "27017:27017"
+      - "27018:27017"
     volumes:
       - ${HOME}/tools/mongo/data:/etc/mongo
       - ${APP_PATH}/etc:/app/etc

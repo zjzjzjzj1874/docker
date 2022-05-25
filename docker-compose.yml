@@ -1,0 +1,145 @@
+version: '3.0'
+
+networks:
+  kms:
+    external: true
+
+services:
+  access-rpc:
+    env_file:
+      - .env
+    image: ${HUB}access-rpc${TAG}
+    container_name: access-rpc
+    restart: always
+    command: ./access -f /app/etc/access${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/access/endpoint/rpc/etc:/app/etc
+      - ${LOG_PATH}/logs/access:/app/logs
+    ports:
+      - "3200:3200"
+    networks:
+      - kms
+
+  users-rpc:
+    env_file:
+      - .env
+    image: ${HUB}users-rpc${TAG}
+    container_name: users-rpc
+    restart: always
+    command: ./users -f /app/etc/users${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/users/endpoint/rpc/etc:/app/etc
+      - ${LOG_PATH}/logs/users-rpc:/app/logs
+    networks:
+      - kms
+    ports:
+      - "9001:9001"
+    depends_on:
+      - access-rpc
+
+  access-api:
+    env_file:
+      - .env
+    image: ${HUB}access-api${TAG}
+    container_name: access-api
+    restart: always
+    command: ./access -f /app/etc/access-api${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/access/endpoint/api/etc:/app/etc
+      - ${LOG_PATH}/logs/access-api:/app/logs
+    networks:
+      - kms
+    ports:
+      - "8009:8009"
+    depends_on:
+      - access-rpc
+      - users-rpc
+
+  users-api:
+    env_file:
+      - .env
+    image: ${HUB}users-api${TAG}
+    container_name: users-api
+    restart: always
+    command: ./users -f /app/etc/users-api${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/users/endpoint/api/etc:/app/etc
+      - ${LOG_PATH}/logs/users-api:/app/logs
+    networks:
+      - kms
+    ports:
+      - "8001:8001"
+    depends_on:
+      - access-rpc
+      - users-rpc
+
+  kms-admin-api:
+    env_file:
+      - .env
+    image: ${HUB}kms-admin-api${TAG}
+    container_name: kms-admin-api
+    restart: always
+    command: ./kms-admin -f /app/etc/kms-admin-api${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/kms_admin/etc:/app/etc
+      - ${LOG_PATH}/logs/kms-admin-api:/app/logs
+    networks:
+      - kms
+    ports:
+      - "8888:8888"
+    depends_on:
+      - access-rpc
+      - users-rpc
+
+  kmsserver-api:
+    env_file:
+      - .env
+    image: ${HUB}kmsserver-api${TAG}
+    container_name: kmsserver-api
+    restart: always
+    command: ./kmsserver -f /app/etc/kmsserver-api${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/kms_server/etc:/app/etc
+      - ${LOG_PATH}/logs/kms-server-api:/app/logs
+    networks:
+      - kms
+    ports:
+      - "7201:7201"
+
+  kmsaudit-api:
+    env_file:
+      - .env
+    image: ${HUB}kmsaudit-api${TAG}
+    container_name: kmsaudit-api
+    restart: always
+    command: ./kms_audit -f /app/etc/kmsaudit-api${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/kms_audit/etc:/app/etc
+      - ${LOG_PATH}/logs/kms-audit-api:/app/logs
+    networks:
+      - kms
+    ports:
+      - "7200:7200"
+
+  kmstask-api:
+    env_file:
+      - .env
+    image: ${HUB}kmstask-api${TAG}
+    container_name: kmstask-api
+    restart: always
+    command: ./kmstask -f /app/etc/kmstask-api${BRANCH_ENV}.yaml
+    privileged: true
+    volumes:
+      - ${KMS_PATH}/kms_task/etc:/app/etc
+      - ${LOG_PATH}/logs/kms-task-api:/app/logs
+    networks:
+      - kms
+    ports:
+      - "7202:7202"
