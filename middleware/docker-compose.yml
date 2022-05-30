@@ -36,6 +36,22 @@ services:
       - ${HOME}/tools/mongo/data:/etc/mongo
       - ${APP_PATH}/etc:/app/etc
       - ${LOG_PATH}/logs/mnogo:/app/logs
+  mysql:
+    env_file:
+      - .env
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+    networks:
+      - docker
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${HOME}/tools/mysql/data:/var/lib/mysql
+      - ${APP_PATH}/etc:/app/etc
+      - ${LOG_PATH}/logs/mysql:/logs
   redis:
     env_file:
       - .env

@@ -1,0 +1,19 @@
+version: "3.1"
+
+networks:
+  kms-v2:
+    internal: true
+services:
+  mysql:
+    image: amd64/mysql:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+    networks:
+      - kms-v2
+    ports:
+      - "3306:3306"
+    volumes:
+      - /tmp/data/mysql/data:/var/lib/mysql
+      - /tmp/data/logs/mysql:/logs
