@@ -1,10 +1,6 @@
 # 通过docker-compose创建基础组件服务 etcd、redis和MongoDB
 version: '3.0'
 
-networks:
-  docker:
-    internal: true
-
 services:
   etcd:
     image: docker.io/bitnami/etcd:3.5
@@ -15,8 +11,6 @@ services:
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_ADVERTISE_CLIENT_URLS=http://192.168.0.1:2379
-    networks:
-      - docker
     volumes:
       - etcd_data:/bitnami/etcd
   mango:
@@ -28,39 +22,31 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
-    networks:
-      - docker
     ports:
-      - "27018:27017"
+      - '27018:27017'
     volumes:
       - ${HOME}/tools/mongo/data:/etc/mongo
-      - ${APP_PATH}/etc:/app/etc
       - ${LOG_PATH}/logs/mnogo:/app/logs
   mysql:
     env_file:
       - .env
-    image: mysql:8.0
+    image: amd64/mysql:latest
     container_name: mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin123
-    networks:
-      - docker
     ports:
-      - "3306:3306"
+      - '3307:3306'
     volumes:
       - ${HOME}/tools/mysql/data:/var/lib/mysql
-      - ${APP_PATH}/etc:/app/etc
       - ${LOG_PATH}/logs/mysql:/logs
   redis:
     env_file:
       - .env
     image: redis
     container_name: redis
-    networks:
-      - docker
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - ${HOME}/redis/data:/data # 映射数据目录
       - ${HOME}/redis/conf:/etc/redis/redis.conf # 映射配置文件

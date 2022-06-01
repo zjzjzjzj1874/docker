@@ -3,6 +3,7 @@
 docker
 
 - docker dockerfile docker-compose
+- docker-compose中如果指定网络，端口不一定能够暴露出来，如果-p没有暴露出来，可以不指定docker中的网络，直接使用docker0即可。
 - many function to test:
   - changelog
   - husky

@@ -1,25 +1,19 @@
-version: "3"
-
-networks:
-  docker:
-    internal: true
+version: '2'
 
 services:
-  redis-master:
-    env_file:
-      - .env
-    image: redis:${tag}
-    container_name: redis-master
-    build:
-      context: .
-      dockerfile: Dockerfile.use
-    ports:
-      - "6380:6380"
-    networks:
-      - docker
-    privileged: true
+  redis:
+    image: docker.io/bitnami/redis:6.2
     environment:
-      - TZ=Asia/Shanghai
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6380:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
 
+volumes:
+  redis_data:
+    driver: local
 
 
