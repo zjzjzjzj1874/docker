@@ -2,10 +2,21 @@
 test:
 	go test -race ./..
 
+echo:
+	echo "hello from makefile"
+
+linters-install:
+	@golangci-lint --version >/dev/null 2>&1 || { \
+		echo "installing linting tools..."; \
+		curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.41.1; \
+	}
+
+lint: linters-install
+	golangci-lint run
+
 # 格式化项目代码
 fmt:
 	goimports -l -w .
-	golangci-lint run
 
 # 整理项目依赖
 tidy:
@@ -121,3 +132,5 @@ env:
 	echo PROJECT="${PROJECT}" >> .env
 	echo HUB_DOMAIN="${HUB_DOMAIN}" >> .env
 	echo BRANCH_ENV="${BRANCH_ENV}" >> .env
+
+.PHONY: test echo
