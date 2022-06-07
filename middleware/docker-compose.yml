@@ -55,6 +55,22 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - LANG=en_US.UTF-8
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq
+    networks:
+      - kms
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - '~/rabbitmq/data/:/var/lib/rabbitmq/mnesia/'
+    restart: always
+    privileged: true
+    environment:
+      RABBITMQ_DEFAULT_VHOST: '/'
+      RABBITMQ_DEFAULT_USER: 'guest'
+      RABBITMQ_DEFAULT_PASS: 'guest'
 
 
 volumes:
