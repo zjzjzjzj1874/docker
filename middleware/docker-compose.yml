@@ -55,16 +55,15 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - LANG=en_US.UTF-8
+
   rabbitmq:
-    image: rabbitmq
+    image: rabbitmq:3.8-management
     container_name: rabbitmq
-    networks:
-      - kms
     ports:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - '~/rabbitmq/data/:/var/lib/rabbitmq/mnesia/'
+      - '~/rabbitmq/data/:/var/lib/rabbitmq/'
     restart: always
     privileged: true
     environment:
