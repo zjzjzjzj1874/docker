@@ -2,7 +2,23 @@ version: '2'
 
 services:
   redis:
+    env_file:
+      - .env
+    image: redis
+    container_name: redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - ${HOME}/redis/data:/data # 映射数据目录
+      - ${HOME}/redis/conf:/etc/redis/redis.conf # 映射配置文件
+    command: redis-server --requirepass 123456a
+    privileged: true  #环境变量
+    environment:
+      - TZ=Asia/Shanghai
+      - LANG=en_US.UTF-8
+  bitnami-redis:
     image: docker.io/bitnami/redis:6.2
+    container_name: bitnami-redis
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
