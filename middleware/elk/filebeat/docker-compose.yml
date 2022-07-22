@@ -1,0 +1,17 @@
+# filebeat docker-compose文件
+version: '3.0'
+services:
+  filebeat:
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.9.3
+    user: root
+    privileged: true
+    environment: # kibana和es地址根据实际情况调整
+      - "strict.perms=false"
+      - "setup.kibana.host=0.0.0.0:5601"
+      - "output.elasticsearch.hosts=['0.0.0.0:9200']"
+    volumes:
+      - /data/elk/filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro # 挂载filebeat的配置文件 => 如果有报错,应该是文件权限的问题,根据实际情况chown
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/ubuntu/logs/:/var/log/:ro # 将宿主机的文件夹挂载到filebeat的工作目录/var/log
+    restart: always

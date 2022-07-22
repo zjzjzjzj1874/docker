@@ -1,0 +1,31 @@
+# filebeat采集核心配置
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths: # filebeat采集的日志路径
+      - /var/log/*/*
+
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat-*"
+setup.template.enabled: false
+setup.template.overwrite: true
+setup.ilm.enabled: false
+setup.dashboards.index: "filebeat-*"
+
+processors:
+  - add_host_metadata: ~
+  - add_docker_metadata: ~
+  - add_cloud_metadata: ~
+
+# kibana地址
+setup.kibana:
+  host: "0.0.0.0:5601"
+# es地址:主要用于数据回吐
+output.elasticsearch:
+  hosts: [ "0.0.0.0:9200" ]
+  index: "filebeat-dev-%{+yyyy.MM.dd}" # 创建索引

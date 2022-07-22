@@ -1,0 +1,17 @@
+version: '3.0'
+
+networks:
+  middleware_:
+    external: true
+
+services:
+  access-rpc:
+    image: access-rpc:test
+    container_name: access-rpc
+    restart: always
+    command: ./access -f /app/etc/access.local.yaml
+    privileged: true
+    ports:
+      - "3200:3200"
+    networks:
+      - middleware_
