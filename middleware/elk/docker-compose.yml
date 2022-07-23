@@ -21,6 +21,8 @@ services:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:7.9.3
     depends_on: [ 'elasticsearch' ]
+    volumes:
+      - /data/elk/kibana:/usr/share/kibana/ # 挂载kibana的文件
     environment:
       - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
     ports:
