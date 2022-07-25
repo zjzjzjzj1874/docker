@@ -1,0 +1,15 @@
+# 普罗米修斯的docker-compose
+version: "3.0"
+
+services:
+  prometheus:
+    image: bitnami/prometheus:latest
+    #    image: quay.io/prometheus/prometheus # RedHat docker repo
+    env_file:
+      - .env
+    container_name: prometheus
+    restart: always
+    ports:
+      - "9090:9090"
+    volumes: # 将Prometheus的配置文件挂载出来 => rem:将你的.env文件添加PWD环境变量
+      - ${PWD}/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
