@@ -4,7 +4,7 @@ version: "3.0"
 services:
   prometheus:
     image: bitnami/prometheus:latest
-    #    image: quay.io/prometheus/prometheus # RedHat docker repo
+    # image: quay.io/prometheus/prometheus # RedHat docker repo
     env_file:
       - .env
     container_name: prometheus

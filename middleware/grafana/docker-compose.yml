@@ -1,0 +1,21 @@
+version: "3.0"
+
+networks:
+  zero_test:
+    external: true
+
+services:
+  grafana:
+    env_file:
+      - .env
+    image: grafana/grafana
+    container_name: grafana
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ${PWD}/grafana:/var/lib/grafana # 将grafana的文件挂载出来
+    ports:
+      - "13000:3000" # 设置容器3000端口映射指定宿主机端口，用于宿主机访问可视化web
+    networks:
+      - zero_test
+    restart: always

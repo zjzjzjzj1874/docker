@@ -1,8 +1,8 @@
 version: "3.1"
 
 networks:
-  kms-v2:
-    internal: true
+  zero_test:
+    external: true
 services:
   mysql:
     image: amd64/mysql:latest
@@ -11,9 +11,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: admin123
     networks:
-      - kms-v2
+      - zero_test
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - /tmp/data/mysql/data:/var/lib/mysql
       - /tmp/data/logs/mysql:/logs
