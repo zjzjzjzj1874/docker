@@ -14,9 +14,12 @@ setup.template.name: "filebeat"
 setup.template.pattern: "filebeat-*"
 setup.template.enabled: false
 setup.template.overwrite: true
-setup.ilm.enabled: false
+setup.ilm.enabled: auto # 开启index lifecycle management
+setup.ilm.rollover_alias: "filebeat-test-ilm" # 索引前缀
+setup.ilm.pattern: "{now/d}" # 索引日期 => 不会每天创建索引
+setup.ilm.policy_name: "filebeat"
 setup.dashboards.index: "filebeat-*"
-
+# 可以参考这个https://www.jianshu.com/p/cf33deaa8684
 processors:
   - add_host_metadata: ~
   - add_docker_metadata: ~
@@ -28,4 +31,4 @@ setup.kibana:
 # es地址:主要用于数据回吐
 output.elasticsearch:
   hosts: [ "0.0.0.0:9200" ]
-  index: "filebeat-dev-%{+yyyy.MM.dd}" # 创建索引
+  index: "filebeat-dev-%{+yyyy.MM.dd}" # 创建索引 ==> 注意:如果ilm开启了,这里的index将不在生效
