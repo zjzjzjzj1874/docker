@@ -23,10 +23,3 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certifi
 {{if .HasTimezone}}COPY --from=builder /usr/share/zoneinfo/{{.Timezone}} /usr/share/zoneinfo/{{.Timezone}}
 ENV TZ {{.Timezone}}
 {{end}}
-WORKDIR /app
-COPY --from=builder /app/{{.ExeFile}} /app/{{.ExeFile}}{{if .Argument}}
-COPY --from=builder /app/etc /app/etc{{end}}
-{{if .HasPort}}
-EXPOSE {{.Port}}
-{{end}}
-CMD ["/app/{{.ExeFile}}"{{.Argument}}]

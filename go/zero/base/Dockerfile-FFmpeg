@@ -1,0 +1,7 @@
+# alpine基础镜像安装FFmpeg使用
+FROM alpine
+
+RUN apk update && apk add ffmpeg
+RUN apk update && apk add ca-certificates
+
+ENV TZ Asia/Shanghai
