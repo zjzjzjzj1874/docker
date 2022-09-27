@@ -16,6 +16,9 @@ services:
       - "discovery.type=single-node"
     networks:
       - elk
+    logging:
+      options:
+        max-size: 100m
 
   kibana:
     container_name: kibana

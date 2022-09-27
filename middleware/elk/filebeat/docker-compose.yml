@@ -15,3 +15,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /home/ubuntu/logs/:/var/log/:ro # 将宿主机的文件夹挂载到filebeat的工作目录/var/log
     restart: always
+    logging:
+      options:
+        max-size: 100m
