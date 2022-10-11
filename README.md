@@ -12,6 +12,8 @@ docker
         - husky添加git hooks：`npx husky add .husky/pre-push "echo push"`，自己到.husky/pre-push再添加对应的处理
         - npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
 
+- docker容器中添加hosts配置: 添加`extra_hosts`属性即可,参考这个文件[mongo服务](./middleware/docker-compose.yml)中的
+
 + [x] env_file in docker-compose
 + [x] Gitlab with docker-compose
 + [x] EFK:Elasticsearch+Filebeat+Kibana

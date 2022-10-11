@@ -19,6 +19,8 @@ services:
     image: mongo
     container_name: mongo
     restart: always
+    extra_hosts: # pod 容器添加hosts
+      - "www.baidu.com:10.0.0.1"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
