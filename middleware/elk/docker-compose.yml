@@ -8,6 +8,7 @@ services:
     privileged: true
     volumes:
       - /data/elk/es/data/:/usr/share/elasticsearch/data
+      - /es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml # 挂载es的配置文件
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -26,6 +27,7 @@ services:
     depends_on: [ 'elasticsearch' ]
     volumes:
       - /data/elk/kibana:/usr/share/kibana/ # 挂载kibana的文件
+      - /kibana/kibana.yml:/usr/share/kibana/config/kibana.yml # 挂载kibana的配置文件
     environment:
       - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
     ports:
