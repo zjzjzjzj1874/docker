@@ -1,0 +1,4 @@
+- `bash crt-redis-conf.sh` :创建redis的配置文件
+- `docker-compose up -d`: 启动redis容器
+- `docker exec -it redis-6379 /bin/bash` 进入一个容器内部
+- 执行:`redis-cli -a 123456a --cluster create IP地址:6379 IP地址:6380 IP地址:6381 IP地址:6382 IP地址:6383 IP地址:6384 --cluster-replicas 1`

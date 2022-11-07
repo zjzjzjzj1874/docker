@@ -1,0 +1,12 @@
+port ${PORT}
+requirepass 123456a
+masterauth 123456a
+protected-mode no
+daemonize no
+appendonly yes
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 15000
+cluster-announce-ip inner-ip
+cluster-announce-port ${PORT}
+cluster-announce-bus-port 1${PORT}

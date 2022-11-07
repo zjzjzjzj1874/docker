@@ -1,0 +1,91 @@
+version: "3.8"
+
+networks:
+  redis_cluster:
+    external: true
+
+services:
+  redis-6379: # 服务名称
+    image: redis # 创建容器时所需的镜像
+    container_name: redis-6379 # 容器名称
+    restart: always # 容器总是重新启动
+    privileged: true # host 网络模式
+    volumes: # 数据卷，目录挂载
+      - /home/ubuntu/scripts/redis-cluster/node-6379/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/ubuntu/scripts/redis-cluster/node-6379/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf # 覆盖容器启动后默认执行的命令
+    ports:
+      - "6379:6379"
+      - "16379:16379"
+    networks:
+      - redis_cluster
+
+  redis-6380:
+    image: redis
+    container_name: redis-6380
+    privileged: true
+    volumes:
+      - /home/ubuntu/scripts/redis-cluster/node-6380/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/ubuntu/scripts/redis-cluster/node-6380/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6380:6380"
+      - "16380:16380"
+    networks:
+      - redis_cluster
+
+  redis-6381:
+    image: redis
+    container_name: redis-6381
+    privileged: true
+    volumes:
+      - /home/ubuntu/scripts/redis-cluster/node-6381/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/ubuntu/scripts/redis-cluster/node-6381/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6381:6381"
+      - "16381:16381"
+    networks:
+      - redis_cluster
+
+  redis-6382:
+    image: redis
+    container_name: redis-6382
+    privileged: true
+    volumes:
+      - /home/ubuntu/scripts/redis-cluster/node-6382/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/ubuntu/scripts/redis-cluster/node-6382/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6382:6382"
+      - "16382:16382"
+    networks:
+      - redis_cluster
+
+  redis-6383:
+    image: redis
+    container_name: redis-6383
+    privileged: true
+    volumes:
+      - /home/ubuntu/scripts/redis-cluster/node-6383/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/ubuntu/scripts/redis-cluster/node-6383/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6383:6383"
+      - "16383:16383"
+    networks:
+      - redis_cluster
+
+  redis-6384:
+    image: redis
+    container_name: redis-6384
+    privileged: true
+    volumes:
+      - /home/ubuntu/scripts/redis-cluster/node-6384/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /home/ubuntu/scripts/redis-cluster/node-6384/data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - "6384:6384"
+      - "16384:16384"
+    networks:
+      - redis_cluster
