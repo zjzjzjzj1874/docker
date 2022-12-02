@@ -13,6 +13,11 @@ docker
         - npx husky add .husky/commit-msg 'npx --no-install commitlint --edit "$1"'
 
 - docker容器中添加hosts配置: 添加`extra_hosts`属性即可,参考这个文件[mongo服务](./middleware/docker-compose.yml)中的
+- docker stack使用
+  - `docker stack deploy --compose-file=docker-compose.yml stack-redis` => stack-redis是部署的名字
+  - `docker stack ls` list
+  - `docker stack services stack-redis` list stack services
+  - `docker stack rm stack-redis` rm stack
 
 + [x] env_file in docker-compose
 + [x] Gitlab with docker-compose
