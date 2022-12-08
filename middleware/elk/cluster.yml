@@ -1,0 +1,96 @@
+# 集群方式启动ES和KIBANA
+version: '3.0'
+services:
+  es01:
+    container_name: es7_1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    privileged: true
+    volumes:
+      - ./data/node1/:/usr/share/elasticsearch/data
+      - ./log/node1:/usr/share/elasticsearch/logs # 挂载es的log
+      - ./es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml # 挂载es的配置文件
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    restart: always
+    environment:
+      - node.name=es7_1
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - cluster.name=es-cluster
+      - discovery.seed_hosts=es7_1,es7_2,es7_3
+      - cluster.initial_master_nodes=es7_1,es7_2,es7_3
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elk
+  es02:
+    container_name: es7_2
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    privileged: true
+    volumes:
+      - ./data/node2/:/usr/share/elasticsearch/data
+      - ./log/node2:/usr/share/elasticsearch/logs # 挂载es的log
+      - ./es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml # 挂载es的配置文件
+    restart: always
+    environment:
+      - node.name=es7_2
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - cluster.name=es-cluster
+      - discovery.seed_hosts=es7_1,es7_2,es7_3
+      - cluster.initial_master_nodes=es7_1,es7_2,es7_3
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elk
+  es03:
+    container_name: es7_3
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+    privileged: true
+    volumes:
+      - ./data/node3/:/usr/share/elasticsearch/data
+      - ./log/node3:/usr/share/elasticsearch/logs # 挂载es的log
+      - ./es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml # 挂载es的配置文件
+    restart: always
+    environment:
+      - node.name=es7_3
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - cluster.name=es-cluster
+      - discovery.seed_hosts=es7_1,es7_2,es7_3
+      - cluster.initial_master_nodes=es7_1,es7_2,es7_3
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    networks:
+      - elk
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.9.3
+    depends_on: [ 'es01' ]
+    volumes:
+      - ./data/kibana:/usr/share/kibana/ # 挂载kibana的文件
+      - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml # 挂载kibana的配置文件
+    environment:
+      - "ELASTICSEARCH_HOSTS=http://elasticsearch:9200"
+    ports:
+      - "5601:5601"
+    restart: always
+    networks:
+      - elk
+
+networks:
+  elk:
