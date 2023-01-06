@@ -1,0 +1,14 @@
+# showdoc的docker-compose
+version: "3.0"
+
+services:
+  showdoc:
+    image: star7th/showdoc:latest
+    container_name: showdoc
+    restart: always
+    privileged: true
+    user: root
+    ports:
+      - "4999:80"
+    volumes: # 将showdoc的配置文件挂载出来
+      - /data/showdoc/html:/var/www/html/
