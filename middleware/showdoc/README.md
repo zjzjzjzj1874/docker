@@ -1,0 +1,7 @@
+- showdoc使用docker配置
+  - `docker-compose.yml`是showdoc的部署文件
+  - 启动方式: `docker-compose up -d`
+  - 登陆:`showdoc/123456`,登陆后请修改密码
+- nginx配置
+  - `nginx.conf`是showdoc的nginx配置文件
+  - 设置代理
