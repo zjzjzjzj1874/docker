@@ -20,6 +20,7 @@ docker
   - `docker stack rm stack-redis` rm stack
 
 + [x] env_file in docker-compose
++ [x] CPU && Memory limitation in docker-compose
 + [x] Gitlab with docker-compose
 + [x] EFK:Elasticsearch+Filebeat+Kibana
 + [x] Prometheus+Grafana
