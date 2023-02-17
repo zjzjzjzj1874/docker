@@ -1,0 +1,27 @@
+version: '3.0'
+services:
+  elasticsearch:
+    container_name: jaeger-all-in-one
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4000M
+    image: jaegertracing/all-in-one:1.42
+    user: root
+    privileged: true
+    ports:
+      - "5775:5775"
+      - "6831:6831"
+      - "6832:6832"
+      - "5778:5778"
+      - "16686:16686"
+      - "14250:14250"
+      - "14268:14268"
+      - "14269:14269"
+      - "4317:4317"
+      - "4318:4318"
+      - "9411:9411"
+    restart: always
+
+# 启动命令: docker-compose -f all-in-one.yml up -d
