@@ -1,6 +1,6 @@
 version: '3.0'
 services:
-  elasticsearch:
+  jaeger-all-in-one:
     container_name: jaeger-all-in-one
     deploy:
       resources:
@@ -16,12 +16,12 @@ services:
       - "6832:6832"
       - "5778:5778"
       - "16686:16686"
-      - "14250:14250"
-      - "14268:14268"
+      - "14250:14250" # gRPC ==> Used by jaeger-agent to send spans in model.proto format.
+      - "14268:14268" # HTTP ==> Accepts spans directly from clients in jaeger.thrift format with binary thrift protocol (POST to /api/traces). Also serves sampling policies at /api/sampling, similar to Agent’s port 5778.
       - "14269:14269"
       - "4317:4317"
       - "4318:4318"
-      - "9411:9411"
+      - "9411:9411" # HTTP	==> Accepts Zipkin spans in Thrift, JSON and Proto (disabled by default).
     restart: always
 
 # 启动命令: docker-compose -f all-in-one.yml up -d
