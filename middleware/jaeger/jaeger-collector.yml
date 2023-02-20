@@ -20,6 +20,10 @@ services:
       - "ES_SERVER_URLS=http://localhost:9200"
       - "ES_USERNAME=elastic"
       - "ES_PASSWORD=uIA2sOHYQvYfyUUgxr2R"
+      ## --es.use-ilm
+      #(experimental) Option to enable ILM for jaeger span & service indices. Use this option with es.use-aliases.
+      # It requires an external component to create aliases before startup and then performing its management.
+      #    ILM policy must be manually created in ES before startup. Supported only for elasticsearch version 7+.
     restart: always
 
 # 启动命令: docker-compose -f all-in-one.yml up -d
