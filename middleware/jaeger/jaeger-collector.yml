@@ -20,6 +20,9 @@ services:
       - "ES_SERVER_URLS=http://localhost:9200"
       - "ES_USERNAME=elastic"
       - "ES_PASSWORD=uIA2sOHYQvYfyUUgxr2R"
+#      - "ES_USE_ILM=true" # 下面三个是用ilm管理的,也可以不用
+#      - "ES_USE_ALIASES=true"
+#      - "ES_CREATE_INDEX_TEMPLATES=false"
       ## --es.use-ilm
       #(experimental) Option to enable ILM for jaeger span & service indices. Use this option with es.use-aliases.
       # It requires an external component to create aliases before startup and then performing its management.
@@ -27,4 +30,4 @@ services:
     restart: always
 
 # 启动命令: docker-compose -f all-in-one.yml up -d
-# 单条命令启动方式:docker run -d --name=jaeger-collector  -p 9411:9411 -p 14250:14250 -p 14268:14268 -p 14269:14269 -e SPAN_STORAGE_TYPE=elasticsearch -e ES_SERVER_URLS=http://localhost:9200 jaegertracing/jaeger-collector:1.42
+# 单条命令启动方式:docker run -d --name=jaeger-collector -p 9411:9411 -p 14250:14250 -p 14268:14268 -p 14269:14269 -e SPAN_STORAGE_TYPE=elasticsearch -e ES_SERVER_URLS=http://localhost:9200 jaegertracing/jaeger-collector:1.42

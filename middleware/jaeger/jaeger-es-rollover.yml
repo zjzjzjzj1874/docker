@@ -1,0 +1,19 @@
+version: '3.0'
+services:
+  jaeger-es-rollover-init:
+    container_name: jaeger-es-rollover-init
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+    image: jaegertracing/jaeger-es-rollover:latest
+    restart: "no"
+    network_mode: "host"
+    environment:
+      - "ES_SERVER_URLS=http://localhost:9200"
+      - "ES_USERNAME=elastic"
+      - "ES_PASSWORD=uIA2sOHYQvYfyUUgxr2R"
+
+# 启动命令: docker-compose -f jaeger-es-rollover.yml run jaeger-es-rollover-init init http://localhost:9200
+# 单条命令启动: docker run -it --rm --net=host -e ES_USERNAME=elastic -e ES_PASSWORD=uIA2sOHYQvYfyUUgxr2R jaegertracing/jaeger-es-rollover:latest init http://localhost:9200

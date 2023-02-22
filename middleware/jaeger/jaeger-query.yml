@@ -19,6 +19,9 @@ services:
       - "ES_SERVER_URLS=http://localhost:9200"
       - "ES_USERNAME=elastic"
       - "ES_PASSWORD=uIA2sOHYQvYfyUUgxr2R"
+      - "ES_USE_ILM=true" # 下面三个是用ilm管理的,也可以不用
+      - "ES_USE_ALIASES=true"
+      - "ES_CREATE_INDEX_TEMPLATES=false"
     restart: always
 
 # 启动命令: docker-compose -f all-in-one.yml up -d
