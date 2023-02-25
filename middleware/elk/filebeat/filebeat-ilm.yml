@@ -1,0 +1,47 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/*/*
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      hints.enabled: true
+
+setup.template.name: "filebeat-ilm"
+setup.template.pattern: "filebeat-ilm-*"
+#setup.template.enabled: false
+#setup.template.overwrite: true
+setup.ilm.enabled: true
+setup.ilm.rollover_alias: "filebeat-ilm"
+setup.ilm.policy_name: "filebeat-ilm-policy"
+setup.ilm.pattern: "{now/M{yyyy.MM}}-000001"
+
+# Index Lifecycle Management (ILM) policy
+setup.ilm.policy:
+  # Name of the policy
+  filebeat-dev-ilm-policy:
+    # Define the lifecycle of the index
+    phases:
+      hot:
+        actions:
+          rollover:
+            max_size: "5GB"
+      delete:
+        min_age: "30d"
+        actions:
+          delete: {}
+
+processors:
+  - add_host_metadata: ~
+  - add_docker_metadata: ~
+  - add_cloud_metadata: ~
+
+setup.kibana:
+  host: "localhost:5601"
+output.elasticsearch:
+  hosts: ["localhost:9200"]
+  index: "filebeat-%{+yyyy.MM.dd}" #
+  pipeline: "pro-pipeline"
+  username: elastic
+  password: "changeme"
