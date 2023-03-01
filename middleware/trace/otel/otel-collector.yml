@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  otelcol:
+    image: otel/opentelemetry-collector:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1000M
+    volumes:
+      - ./config:/etc/otel/config
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "55680:55680"
