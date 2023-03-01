@@ -15,7 +15,7 @@ services:
       - "16686:16686"
       - "16687:16687"
     volumes:
-      - ./jaeger-conf.yaml:/etc/jaeger/jaeger.yaml
+      - ./jaeger-conf.yaml:/etc/jaeger/jaeger.yaml # 暂时不得行,jaeger-query目前不支持在使用时登陆,只能后面空了使用openshift+sidecar看看能不能实现
     environment:
       - "SPAN_STORAGE_TYPE=elasticsearch"
       - "ES_SERVER_URLS=http://localhost:9200"

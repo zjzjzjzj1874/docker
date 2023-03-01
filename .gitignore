@@ -1,3 +1,6 @@
 .idea
 *.doc
 *.env
+
+middleware/elk/data
+middleware/elk/log

@@ -119,6 +119,10 @@
     ```
     docker run -it --rm --net=host -e ES_USE_ILM=true -e ES_USERNAME=elastic -e ES_PASSWORD=uIA2sOHYQvYfyUUgxr2R jaegertracing/jaeger-es-rollover:latest init http://localhost:9200
     ```
+   
+## TODO list
+ - [ ] Jaeger-Query使用前登陆:只能后面空了使用openshift+sidecar看看能不能实现
+
 ## 参考资料
 
 - [Trace Context](https://www.w3.org/TR/trace-context/)
