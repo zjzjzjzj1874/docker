@@ -1,0 +1,37 @@
+#FROM daocloud.io/library/python:3.5.2
+#ENV PYTHONUNBUFFERED 1
+#RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && mkdir /code && mkdir -p ~/.ssh
+#WORKDIR /code
+#
+#ADD deploy /code/deploy
+#
+#RUN pwd && cp deploy/gitlab/build_key ~/.ssh && chmod 700 ~/.ssh/build_key && echo "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config && echo "export GIT_SSL_NO_VERIFY=1" >> ~/.bashrc && export GIT_SSL_NO_VERIFY=1
+#
+#ADD requirements/base.txt /code
+#RUN pip install --upgrade pip -i https://pypi.douban.com/simple && eval $(ssh-agent -s) && ssh-add ~/.ssh/build_key && pip3 install -r base.txt -i https://pypi.douban.com/simple
+
+FROM daocloud.io/library/python:3.5.2
+ENV PYTHONUNBUFFERED 1
+
+# 切换中科大的镜像源
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+WORKDIR /code
+
+ADD deploy /code/deploy
+
+ADD requirements/base.txt /code
+RUN pip install -r base.txt -i https://pypi.douban.com/simple
+
+
+
+###### 如果想替换镜像源,如下是替换成华为云的Ubuntu镜像源
+#deb http://mirrors.myhuaweicloud.com/ubuntu/ bionic main restricted universe multiverse
+#deb http://mirrors.myhuaweicloud.com/ubuntu/ bionic-security main restricted universe multiverse
+#deb http://mirrors.myhuaweicloud.com/ubuntu/ bionic-updates main restricted universe multiverse
+#deb http://mirrors.myhuaweicloud.com/ubuntu/ bionic-proposed main restricted universe multiverse
+#deb http://mirrors.myhuaweicloud.com/ubuntu/ bionic-backports main restricted universe multiverse
+#deb-src http://mirrors.myhuaweicloud.com/ubuntu/ bionic main restricted universe multiverse
+#deb-src http://mirrors.myhuaweicloud.com/ubuntu/ bionic-security main restricted universe multiverse
+#deb-src http://mirrors.myhuaweicloud.com/ubuntu/ bionic-updates main restricted universe multiverse
+#deb-src http://mirrors.myhuaweicloud.com/ubuntu/ bionic-proposed main restricted universe multiverse
+#deb-src http://mirrors.myhuaweicloud.com/ubuntu/ bionic-backports main restricted universe multiverse
