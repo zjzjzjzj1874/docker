@@ -23,4 +23,8 @@ docker
 + [x] CPU && Memory limitation in docker-compose
 + [x] Gitlab with docker-compose
 + [x] EFK:Elasticsearch+Filebeat+Kibana
-+ [x] Prometheus+Grafana
+  + [x] Prometheus+Grafana
+
+## Docker-compose常用命令
+* -p:指定项目,一般docker-compose中同一个svc如果想要起两个甚至多个pod,就需要指定-p,
+`docker-compose -p dev up -d A` or `docker-compose -p pro up -d A`;如果有端口,目测大概率不行

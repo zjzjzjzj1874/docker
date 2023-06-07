@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-a
+  namespace: ${NS}
+  labels:
+    app: frontend-a
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: frontend-a
+  template:
+    metadata:
+      labels:
+        app: frontend-a
+    spec:
+      containers:
+        - name: frontend-a
+          image: 'frontend-a:${DOCKER_TAG}'
+          command: ['sh', '-c', 'sleep 5'] # 如果有问题,可以sleep600,然后进入
+          lifecycle:
+            preStop:
+              exec:
+                command: ['sh', '-c', 'sleep 5']
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: timezone
+              mountPath: /etc/localtime
+      imagePullSecrets:
+        - name: default-secret
+      volumes:
+        - name: timezone
+          hostPath:
+            path: /usr/share/zoneinfo/Asia/Shanghai
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontend-a-svc
+  namespace: ${NS}
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app: frontend-a
+  type: NodePort
