@@ -3,4 +3,5 @@
 *.env
 
 middleware/elk/data
+middleware/pgsql/data
 middleware/elk/log

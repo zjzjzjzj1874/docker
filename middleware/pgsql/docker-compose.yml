@@ -1,0 +1,20 @@
+version: "3.0"
+
+# networks:
+#   bridge:
+#     external: true  # 指定这是一个外部网络
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:14.3-alpine
+    environment:
+      POSTGRES_USER: rw_user
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 15432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    # networks:
+    #   - bridge  # 使用外部的 bridge 网络
