@@ -1,0 +1,12 @@
+version: "3.0"
+
+services:
+  schemio:
+    image: binshu/schemio:latest
+    ports:
+      - "14010:4010"
+    volumes:
+      - ./schemio:/opt/schemio
+    environment:
+      - FS_ROOT_PATH=/opt/schemio
+      - SERVER_PORT=4010

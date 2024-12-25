@@ -13,5 +13,5 @@ docmost是基于docker的共享文档部署系统，可以快速部署一个基�
 
 
 ## 参考文档
-* [安装教程](https://docmost.com/docs/installation
-)
+* [安装教程](https://docmost.com/docs/installation)
+
