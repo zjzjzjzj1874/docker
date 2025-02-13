@@ -1,0 +1,21 @@
+
+version: '3'
+services:
+  jenkins:
+    user: root
+    privileged: true  # 启用特权模
+    image: jenkins
+    container_name: jenkins
+    networks:
+      - jenkins_network
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /home/ubuntu_admin/compose_jenkins/jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+networks:
+  jenkins_network:
+    external: true    # 声明使用外部已存在的网络
