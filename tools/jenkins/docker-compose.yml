@@ -1,15 +1,19 @@
 version: '3'
+
 services:
   jenkins:
-    image: jenkinsci/blueocean
-    user: root
+    image: jenkins/jenkins
+    container_name: jenkins
     ports:
-      - "8080:8080"
+      - "28080:8080"
       - "50000:50000"
     volumes:
-      - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    container_name: jenkins-blueocean
+      - ./jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins_network
+    restart: always
 
-volumes:
-  jenkins-data:
+networks:
+  jenkins_network:
+    name: jenkins-net
+    external: true

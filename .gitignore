@@ -7,3 +7,4 @@ middleware/pgsql/data
 middleware/elk/log
 
 tools/schemio/schemio
+jenkins_home
