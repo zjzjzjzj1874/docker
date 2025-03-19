@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  swagger-ui:
+    image: docker.swagger.io/swaggerapi/swagger-ui
+    container_name: swagger-ui
+    ports:
+      - "20900:8080"
+    restart: always
