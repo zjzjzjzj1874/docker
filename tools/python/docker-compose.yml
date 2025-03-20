@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  python-app:
+    image: python:3.9
+    container_name: python-app
+    restart: always
+    stdin_open: true
+    tty: true
+    command: tail -f /dev/null
