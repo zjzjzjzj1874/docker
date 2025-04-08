@@ -11,6 +11,14 @@ services:
       APP_SECRET: 'aL1pPi87Hjtr'
       DATABASE_URL: 'postgresql://rw_user:admin123@db:5432/docmost?schema=public'
       REDIS_URL: 'redis://redis:6379'
+      MAIL_DRIVER: 'smtp'
+      SMTP_HOST: 'changeme'
+      SMTP_PORT: 587
+      SMTP_USERNAME: 'trigger_sentmail'
+      SMTP_PASSWORD: 'changeme'
+      SMTP_SECURE: 'tls'
+      MAIL_FROM_ADDRESS: 'noreply@qq.com'
+      MAIL_FROM_NAME: 'changme'
     ports:
       - "13000:3000"
     restart: unless-stopped
