@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  newapi-mysql:
+    image: mysql:8
+    container_name: newapi-mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-oneapi}
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
