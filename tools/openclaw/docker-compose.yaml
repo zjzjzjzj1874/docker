@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  openclaw:
+    image: openclaw/agent:latest
+    container_name: openclaw
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=256M
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    ports:
+      - "28789:18789"
+    volumes:
+      - ${HOME}/openclaw-workspace:/app/workspace:rw
+      - ${HOME}/.openclaw:/root/.openclaw

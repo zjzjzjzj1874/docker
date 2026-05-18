@@ -1,0 +1,11 @@
+version: '3'
+services:
+  dashboard:
+    container_name: nezha-dashboard
+    image: lsposed/nezha:latest
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./data:/dashboard/data
+    environment:
+      - TZ=Asia/Shanghai  # 调整为你的时区，如America/Los_Angeles
